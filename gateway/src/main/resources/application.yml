@@ -1,5 +1,6 @@
 server:
-  port: 8080
+  # Docker/部署时允许通过环境变量覆盖网关端口
+  port: ${GATEWAY_PORT:8080}
 
 spring:
   application:
@@ -7,7 +8,8 @@ spring:
   config:
     # 可选导入 Config Server 配置。
     # 如果 config-server 没启动，仍可使用本地 application.yml 启动（开发期更方便）。
-    import: "optional:configserver:http://localhost:8888"
+    # 本地开发默认指向 localhost；Docker 下通过环境变量指向 config-server 服务名
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}"
   cloud:
     gateway:
       discovery:
@@ -28,7 +30,7 @@ eureka:
   client:
     # 指定 Eureka 注册中心地址
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
     # 拉取注册表（用于解析 lb://user-service）
     fetch-registry: true
     # 网关自己也向 Eureka 注册（便于统一管理；也可以改为 false）
@@ -36,6 +38,8 @@ eureka:
   instance:
     # 使用 IP 注册更直观
     prefer-ip-address: true
+    # 多实例部署时避免实例 ID 冲突
+    instance-id: ${spring.application.name}:${random.value}
 
 management:
   endpoints:

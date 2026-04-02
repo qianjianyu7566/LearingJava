@@ -1,5 +1,6 @@
 server:
-  port: 8761
+  # Docker/部署时允许通过环境变量覆盖端口，避免端口冲突
+  port: ${EUREKA_SERVER_PORT:8761}
 
 spring:
   application:

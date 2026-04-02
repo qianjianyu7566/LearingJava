@@ -39,7 +39,7 @@ LearingJava/
 3. 启动 `user-service`
 4. 启动 `gateway`（默认端口 `8080`）
 
-> 其中 `user-service` 的 `server.port` 配置为 `0`，表示随机端口启动；Eureka 会负责将服务地址注册给网关使用。
+> 其中 `user-service` 默认监听固定端口（Docker/部署更方便），通过 Eureka 注册后，网关使用 `lb://user-service` 转发。
 
 ## 调用示例
 
@@ -52,3 +52,38 @@ LearingJava/
 ```json
 { "message": "Hello from Spring Cloud Config Server (dev)." }
 ```
+
+## Docker 运行与高并发（参考 1 万 QPS）
+
+### 1. 构建并启动（单实例起步）
+
+在项目根目录执行：
+
+```bash
+docker compose up --build -d
+```
+
+调用示例：
+
+- `GET http://localhost:8080/api/users/hello`
+
+### 2. 横向扩容 user-service（关键）
+
+本骨架下接口本身非常轻量（每次请求主要是读取已加载的配置并返回 JSON），所以主要瓶颈在吞吐与网络转发。
+
+建议把 `user-service` 扩容到足够数量（例如从 5、10、20 逐步加）：
+
+```bash
+docker compose up -d --scale user-service=10
+```
+
+由于 `user-service` 在 `docker-compose.yml` 中不映射宿主机端口，扩容不会端口冲突；网关通过 Eureka 发现并轮询到各实例。
+
+### 3. 如果仍达不到 1 万 QPS
+
+通常需要继续做两类增强：
+
+- 扩容网关：`gateway` 也需要多个实例（现实生产一般再加 Nginx/Ingress 做入口负载均衡）
+- JVM/线程调优：继续增大 `user-service` 的 `server.tomcat.threads.max`、网关的连接池参数（可根据压测结果调整）
+
+> 1 万 QPS 最终能否达到，强依赖你本机/容器的 CPU 核心数、网络环境以及 Docker 的资源分配。
