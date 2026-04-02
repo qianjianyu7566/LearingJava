@@ -1,0 +1,40 @@
+server:
+  # 端口为 0：由 Spring Boot 在启动时随机分配可用端口（开发演示用）
+  port: 0
+
+spring:
+  application:
+    name: user-service
+  profiles:
+    # 指定要读取的配置 profile；会映射到 config-repo 里的 user-service-{profile}.yml
+    active: dev
+  config:
+    # 可选导入：如果 config-server 正常启动，则优先从 Config Server 拉取配置
+    import: "optional:configserver:http://localhost:8888"
+
+user:
+  # 本地默认值（当 Config Server 未提供对应配置时会生效）
+  welcome-message: "Hello from user-service (local)."
+
+eureka:
+  client:
+    service-url:
+      # Eureka 注册中心地址
+      defaultZone: http://localhost:8761/eureka/
+    # 是否注册到 Eureka
+    register-with-eureka: true
+    # 是否拉取注册表（用于自身发现其他服务；本骨架也会用到）
+    fetch-registry: true
+  instance:
+    # 使用 IP 注册更直观
+    prefer-ip-address: true
+    # instance-id 避免多次启动时产生重复实例
+    instance-id: ${spring.application.name}:${random.value}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 暴露所有 actuator 端点，方便开发期排查问题
+        include: "*"
+

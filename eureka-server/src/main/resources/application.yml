@@ -1,0 +1,21 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+  client:
+    # 注册中心自身不需要向自己注册
+    register-with-eureka: false
+    # 注册中心自身也不需要拉取注册表（否则会形成无意义的同步）
+    fetch-registry: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 暴露所有 actuator 端点，方便开发期排查
+        include: "*"
+

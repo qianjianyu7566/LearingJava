@@ -1,0 +1,46 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  config:
+    # 可选导入 Config Server 配置。
+    # 如果 config-server 没启动，仍可使用本地 application.yml 启动（开发期更方便）。
+    import: "optional:configserver:http://localhost:8888"
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          # 开启服务发现路由：可以基于 Eureka 自动生成路由（本例额外显式配置了 user-service 路由）
+          enabled: true
+          # 服务名在路由匹配时统一转成小写
+          lower-case-service-id: true
+      routes:
+        - id: user-service
+          # 使用 Eureka/LB（负载均衡）方式解析 user-service 的地址
+          uri: lb://user-service
+          predicates:
+            # 路由断言：访问 /api/users/** 的请求都转发到 user-service
+            - Path=/api/users/**
+
+eureka:
+  client:
+    # 指定 Eureka 注册中心地址
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    # 拉取注册表（用于解析 lb://user-service）
+    fetch-registry: true
+    # 网关自己也向 Eureka 注册（便于统一管理；也可以改为 false）
+    register-with-eureka: true
+  instance:
+    # 使用 IP 注册更直观
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 暴露所有 actuator 端点
+        include: "*"
+

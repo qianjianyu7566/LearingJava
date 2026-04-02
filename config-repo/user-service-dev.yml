@@ -1,0 +1,4 @@
+# 给 user-service-dev(profile=dev) 提供配置
+user:
+  welcome-message: "Hello from Spring Cloud Config Server (dev)."
+

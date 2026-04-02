@@ -1,0 +1,25 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    # Config Server 服务名称（也可以用于发现/配置总线）
+    name: config-server
+  profiles:
+    # 启用 native 模式：直接从本地文件系统读取配置
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          # 配置仓库路径：Spring Cloud Config Server 会读取该目录下的 yml/properties
+          # 例如：user-service-dev.yml 会被 user-service（profile=dev）读取。
+          search-locations: "file:${user.dir}/config-repo"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # 暴露所有 actuator 端点，便于查看健康/配置信息
+        include: "*"
+
