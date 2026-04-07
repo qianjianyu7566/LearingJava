@@ -28,5 +28,7 @@ public class UserController {
         // 使用 Map 返回 JSON 格式：{"message":"..."}
         return Map.of("message", userProperties.getWelcomeMessage());
     }
+
+
 }
 
