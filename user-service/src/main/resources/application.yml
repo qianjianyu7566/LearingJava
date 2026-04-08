@@ -20,6 +20,21 @@ spring:
     # 可选导入：如果 config-server 正常启动，则优先从 Config Server 拉取配置
     import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}"
 
+  data:
+    redis:
+      host: localhost # Redis 服务器地址
+      port: 6379      # Redis 端口
+      password: ""    # 如果没有密码就留空
+      database: 0     # 使用的数据库索引
+      timeout: 10000  # 连接超时时间
+      # 连接池配置
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1
+          max-idle: 8
+          min-idle: 0
+
 user:
   # 本地默认值（当 Config Server 未提供对应配置时会生效）
   welcome-message: "Hello from user-service (local)."
@@ -45,4 +60,3 @@ management:
       exposure:
         # 暴露所有 actuator 端点，方便开发期排查问题
         include: "*"
-

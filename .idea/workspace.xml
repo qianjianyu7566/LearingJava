@@ -4,11 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf30519f-5dde-4a91-90f2-d049dec7f5c6" name="更改" comment="fix: 补齐每个模块的 Dockerfile和根目录 docker-compose.yml">
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/springcloud/userservice/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/springcloud/userservice/UserServiceImpl.java" afterDir="false" />
+    <list default="true" id="bf30519f-5dde-4a91-90f2-d049dec7f5c6" name="更改" comment="fix: 补充业务类以及配置线程池方法">
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/springcloud/userservice/mapper/ProductMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/springcloud/userservice/mapper/ProductMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/springcloud/userservice/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/springcloud/userservice/mapper/UserMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/config/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user-service/src/main/java/model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/example/springcloud/userservice/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/springcloud/userservice/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config-server/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eureka-server/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/eureka-server/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/java/com/example/springcloud/userservice/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/java/com/example/springcloud/userservice/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user-service/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/target/classes/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +29,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -66,6 +77,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;Spring Boot.ConfigServerApplication.executor&quot;: &quot;Debug&quot;,
     &quot;Spring Boot.EurekaServerApplication.executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Debug&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/AIdeaProjects/LearingJava&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -95,7 +107,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ConfigServerApplication">
+  <component name="RunManager" selected="Spring Boot.UserServiceApplication">
     <configuration name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="config-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.springcloud.ConfigServerApplication" />
@@ -149,7 +161,11 @@
       <workItem from="1775187644982" duration="3359000" />
       <workItem from="1775194525306" duration="1985000" />
       <workItem from="1775526633240" duration="595000" />
-      <workItem from="1775550384019" duration="2290000" />
+      <workItem from="1775550384019" duration="2423000" />
+      <workItem from="1775559952393" duration="594000" />
+      <workItem from="1775620038747" duration="115000" />
+      <workItem from="1775631811816" duration="4266000" />
+      <workItem from="1775637467494" duration="1787000" />
     </task>
     <task id="LOCAL-00001" summary="fixed: 去除冗余的demo模块">
       <option name="closed" value="true" />
@@ -175,7 +191,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775116417028</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fix: 补充业务类以及配置线程池方法">
+      <option name="closed" value="true" />
+      <created>1775557792060</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1775557792060</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,7 +221,8 @@
     <MESSAGE value="feat: Cursor构建springCloud项目框架" />
     <MESSAGE value="fixed: 去除冗余的demo模块" />
     <MESSAGE value="fix: 补齐每个模块的 Dockerfile和根目录 docker-compose.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 补齐每个模块的 Dockerfile和根目录 docker-compose.yml" />
+    <MESSAGE value="fix: 补充业务类以及配置线程池方法" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 补充业务类以及配置线程池方法" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

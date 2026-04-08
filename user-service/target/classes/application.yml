@@ -1,6 +1,14 @@
 server:
-  # 端口为 0：由 Spring Boot 在启动时随机分配可用端口（开发演示用）
-  port: 0
+  # Docker/部署建议使用固定端口，便于服务发现与压测定位
+  port: ${USER_SERVICE_PORT:8081}
+
+  # 面向高并发的基础线程/连接参数（可根据机器性能继续调大）
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 20
+    accept-count: 1000
+    connection-timeout: 20000ms
 
 spring:
   application:
@@ -10,7 +18,22 @@ spring:
     active: dev
   config:
     # 可选导入：如果 config-server 正常启动，则优先从 Config Server 拉取配置
-    import: "optional:configserver:http://localhost:8888"
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}"
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: ""
+      database: 0
+      timeout: 10000
+      # 连接池配置
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1
+          max-idle: 8
+          min-idle: 0
 
 user:
   # 本地默认值（当 Config Server 未提供对应配置时会生效）
@@ -20,7 +43,7 @@ eureka:
   client:
     service-url:
       # Eureka 注册中心地址
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
     # 是否注册到 Eureka
     register-with-eureka: true
     # 是否拉取注册表（用于自身发现其他服务；本骨架也会用到）
@@ -37,4 +60,3 @@ management:
       exposure:
         # 暴露所有 actuator 端点，方便开发期排查问题
         include: "*"
-

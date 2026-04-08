@@ -1,5 +1,6 @@
 server:
-  port: 8888
+  # Docker/部署时允许通过环境变量覆盖端口，避免端口冲突
+  port: ${CONFIG_SERVER_PORT:8888}
 
 spring:
   application:
@@ -14,7 +15,8 @@ spring:
         native:
           # 配置仓库路径：Spring Cloud Config Server 会读取该目录下的 yml/properties
           # 例如：user-service-dev.yml 会被 user-service（profile=dev）读取。
-          search-locations: "file:${user.dir}/config-repo"
+          # 在 Docker 场景下，默认把配置仓库放到容器内的 /app/config-repo
+          search-locations: "file:${CONFIG_REPO_PATH:/app/config-repo}"
 
 management:
   endpoints:
