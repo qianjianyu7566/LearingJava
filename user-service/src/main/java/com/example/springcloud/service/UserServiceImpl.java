@@ -1,10 +1,11 @@
-package com.example.springcloud.userservice;
+package com.example.springcloud.service;
 
-import com.example.springcloud.userservice.mapper.ProductMapper;
-import com.example.springcloud.userservice.mapper.UserMapper;
+import com.example.springcloud.mapper.ProductMapper;
+import com.example.springcloud.mapper.UserMapper;
 import jakarta.validation.constraints.NotNull;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -126,7 +127,9 @@ public class UserServiceImpl implements UserService{
 
             // 业务逻辑：扣减库存
             int stock = productMapper.getStock(productId);
-            if (stock <= 0) return false;
+            if (stock <= 0) {
+                return false;
+            }
             productMapper.deductStock(productId);
             return true;
 

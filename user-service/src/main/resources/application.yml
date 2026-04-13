@@ -35,6 +35,22 @@ spring:
           max-idle: 8
           min-idle: 0
 
+  kafka:
+    # Kafka 地址
+    bootstrap-servers: 127.0.0.1:9092
+
+    # 生产者配置
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+    # 消费者配置
+    consumer:
+      group-id: test-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest  # 从头开始消费
+
 user:
   # 本地默认值（当 Config Server 未提供对应配置时会生效）
   welcome-message: "Hello from user-service (local)."

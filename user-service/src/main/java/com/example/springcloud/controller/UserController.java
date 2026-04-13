@@ -1,7 +1,8 @@
-package com.example.springcloud.userservice;
+package com.example.springcloud.controller;
 
 import java.util.Map;
 
+import com.example.springcloud.UserProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

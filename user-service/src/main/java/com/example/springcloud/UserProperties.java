@@ -1,4 +1,4 @@
-package com.example.springcloud.userservice;
+package com.example.springcloud;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

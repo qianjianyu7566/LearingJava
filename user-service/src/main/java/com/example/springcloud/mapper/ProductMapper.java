@@ -1,4 +1,4 @@
-package com.example.springcloud.userservice.mapper;
+package com.example.springcloud.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

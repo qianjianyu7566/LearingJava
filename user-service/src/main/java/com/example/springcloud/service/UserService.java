@@ -1,4 +1,4 @@
-package com.example.springcloud.userservice;
+package com.example.springcloud.service;
 
 public interface UserService {
 
